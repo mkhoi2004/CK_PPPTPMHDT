@@ -7,12 +7,11 @@ import re
 
 bp_auth = Blueprint("auth", __name__, url_prefix="/api/auth")
 
-PHONE_RE = re.compile(r"^0\d{9,10}$")   # 10-11 số, bắt đầu bằng 0
+PHONE_RE = re.compile(r"^0\d{9,10}$")
 
 @bp_auth.post("/login")
 def login():
     data = request.get_json() or {}
-    # Chỉ login bằng username (khớp tiêu chí)
     username = (data.get("username") or data.get("username_or_email") or "").strip()
     password = data.get("password", "")
 
@@ -27,7 +26,6 @@ def login():
     token = create_access_token(identity=str(user.ma_tai_khoan),
                                 additional_claims={"role": role})
 
-    # log lịch sử (không làm hỏng luồng nếu lỗi)
     try:
         db.session.add(LichSuDangNhap(
             ma_tai_khoan=user.ma_tai_khoan,
@@ -52,7 +50,6 @@ def register():
     phone      = (data.get("phone")      or "").strip()
     password   = data.get("password", "")
 
-    # ✅ Bắt buộc đủ như tiêu chí bảng
     if not all([username, full_name, phone, password]):
         return jsonify({"msg":"Thiếu thông tin: cần username, họ tên, sđt, mật khẩu"}), 400
     if len(password) < 8:
@@ -92,3 +89,34 @@ def change_password():
     user.set_password(new_pw)
     db.session.commit()
     return jsonify({"msg":"Đổi mật khẩu thành công. Vui lòng đăng nhập lại."}), 200
+
+# NEW: lịch sử đăng nhập có phân trang
+@bp_auth.get("/login-history")
+@jwt_required()
+def login_history():
+    claims = get_jwt()
+    role = claims.get("role")
+    page = max(int(request.args.get("page", 1)), 1)
+    page_size = min(max(int(request.args.get("page_size", 10)), 1), 100)
+
+    q = LichSuDangNhap.query
+    if role != "admin":
+        uid = int(claims["sub"])
+        q = q.filter(LichSuDangNhap.ma_tai_khoan == uid)
+
+    total = q.count()
+    items = (q.order_by(LichSuDangNhap.thoi_gian_dn.desc())
+               .offset((page - 1) * page_size)
+               .limit(page_size)
+               .all())
+    data = [{
+        "username": it.ten_dang_nhap_tai_khoan,
+        "time": it.thoi_gian_dn.isoformat()
+    } for it in items]
+
+    return jsonify({
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "items": data
+    })
