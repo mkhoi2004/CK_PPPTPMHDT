@@ -1,0 +1,42 @@
+# ===============================
+# 📦 REQUIREMENTS FOR CK_PPPTPMHDT BACKEND
+# ===============================
+
+# --- Core scientific / ML stack ---
+numpy==1.26.4
+pandas
+opencv-python
+matplotlib
+seaborn
+scikit-learn
+h5py
+pillow==10.4.0
+
+# --- Deep Learning ---
+tensorflow==2.15.0
+keras==2.15.0
+# Optional (PyTorch support)
+torch
+torchvision
+torchaudio
+
+# --- Flask backend ---
+flask==3.0.3
+flask-cors==4.0.1
+flask-jwt-extended==4.6.0
+flask-migrate==4.0.7
+flask-sqlalchemy==3.1.1
+python-dotenv==1.0.1
+
+# --- PostgreSQL database ---
+psycopg2-binary==2.9.9
+
+# --- Authentication & Password hashing ---
+passlib[bcrypt]==1.7.4
+bcrypt==3.2.2     # ⚠️ quan trọng: fix lỗi "AttributeError: module 'bcrypt' has no attribute '__about__'"
+
+# --- PDF / Report export ---
+reportlab==4.2.2
+
+# --- Optional utilities ---
+requests

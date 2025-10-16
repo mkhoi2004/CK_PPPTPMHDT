@@ -1,0 +1,143 @@
+/* ============ Layout tổng ============ */
+.dashboard-page {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+  background: #f8f9fb;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* ============ Sidebar ============ */
+.sidebar {
+  background: #1f2937;
+  color: #fff;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.15);
+}
+.sidebar h2 {
+  font-size: 20px;
+  margin-bottom: 28px;
+}
+.sidebar a {
+  color: #cbd5e1;
+  text-decoration: none;
+  margin: 10px 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.sidebar a:hover,
+.sidebar a.active {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ============ Main Content ============ */
+.dashboard-main {
+  padding: 24px 36px;
+}
+
+/* ============ Header ============ */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+.dashboard-header h1 {
+  font-size: 24px;
+  color: #111827;
+}
+.dashboard-header button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.dashboard-header button:hover {
+  background: #1d4ed8;
+}
+
+/* ============ Stats cards ============ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-bottom: 30px;
+}
+.stat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  text-align: center;
+}
+.stat-card h3 {
+  color: #6b7280;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+.stat-card .value {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+}
+.stat-card .change {
+  font-size: 13px;
+  color: #22c55e;
+}
+
+/* ============ Bộ lọc ngày + Chart ============ */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.filters input {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: white;
+}
+.filters button {
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.filters button:hover {
+  background: #1d4ed8;
+}
+
+.chart-box {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-page {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .dashboard-main {
+    padding: 16px;
+  }
+}

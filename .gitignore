@@ -1,0 +1,99 @@
+# ============================
+# 🔹 ENVIRONMENT & DEPENDENCIES
+# ============================
+env/
+venv/
+myenv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ============================
+# 🔹 BUILD & DIST FILES
+# ============================
+build/
+dist/
+*.egg-info/
+.eggs/
+*.manifest
+*.spec
+
+# ============================
+# 🔹 FRONTEND
+# ============================
+frontend/node_modules/
+frontend/.vite/
+frontend/dist/
+frontend/.next/
+frontend/.cache/
+frontend/.env
+frontend/.env.local
+frontend/.DS_Store
+
+# ============================
+# 🔹 BACKEND
+# ============================
+backend/__pycache__/
+backend/.env
+backend/.vscode/
+backend/.pytest_cache/
+backend/*.db
+backend/instance/
+
+# ============================
+# 🔹 MODEL & DATA FILES
+# ============================
+working/
+*.h5
+*.hdf5
+*.keras
+*.npz
+*.npy
+*.pkl
+*.csv
+*.xlsx
+*.xls
+*.json
+*.dat
+*.pt
+*.pth
+*.tflite
+*.ckpt
+
+# ============================
+# 🔹 ARCHIVES / LOGS / TEMP
+# ============================
+*.zip
+*.rar
+*.tar
+*.gz
+*.7z
+*.bak
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/
+
+# ============================
+# 🔹 IDE CONFIGS
+# ============================
+.vscode/
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ============================
+# 🔹 SYSTEM / OS
+# ============================
+ehthumbs.db
+Icon?
+desktop.ini

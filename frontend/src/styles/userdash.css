@@ -1,0 +1,103 @@
+/* Nền sáng, căn giữa toàn bộ */
+.userdash {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f6f7fb;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+}
+
+/* Khung chính */
+.userdash-card {
+  width: min(720px, 92vw);
+  background: #fff;
+  border: 1px solid #e7ebf3;
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(40, 72, 144, 0.08);
+  padding: 28px 30px;
+}
+
+/* Tiêu đề to, rõ */
+.userdash-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 8px;
+}
+.userdash-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* Form tối giản 2 hàng: chọn ảnh + nút */
+.userdash-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Ô chọn file */
+.userdash-file {
+  width: 100%;
+  border: 1px solid #cfd8e6;
+  background: #fafbfd;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 16px;
+  color: #111827;
+}
+.userdash-file:focus {
+  outline: none;
+  border-color: #5da0ff;
+  box-shadow: 0 0 0 3px rgba(93,160,255,.2);
+}
+
+/* Nút lớn màu xanh */
+.userdash-btn {
+  background: #2d6cdf;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter .2s, transform .04s;
+}
+.userdash-btn:hover { filter: brightness(1.05); }
+.userdash-btn:active { transform: translateY(1px); }
+.userdash-btn:disabled { opacity:.6; cursor:not-allowed; }
+
+/* Thông báo lỗi/thành công */
+.userdash-error {
+  margin-top: 14px;
+  background: #ffecec;
+  color: #b42318;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-weight: 600;
+}
+.userdash-result {
+  margin-top: 16px;
+  background: #f0fdf4;
+  color: #065f46;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+/* Xem trước ảnh (nếu có) */
+.userdash-preview {
+  margin-top: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  max-width: 100%;
+}
+
+/* Mobile: nút xuống hàng */
+@media (max-width: 640px) {
+  .userdash-form { grid-template-columns: 1fr; }
+}
