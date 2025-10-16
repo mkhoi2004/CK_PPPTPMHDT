@@ -6,6 +6,7 @@ import "../styles/auth.css";
 export default function Login(){
   const nav = useNavigate();
   const [form, setForm] = useState({ username:"", password:"" });
+  const [showPass, setShowPass] = useState(false);
   const [err, setErr] = useState("");
 
   const submit = async (e) => {
@@ -28,20 +29,43 @@ export default function Login(){
   return (
     <div className="auth-page">
       <div className="auth-card">
-        {/* Panel trái */}
         <section className="auth-left">
           <h1>Báo cáo cuối kì</h1>
           <p>Nhóm 11_Phương pháp phát triển phần mềm hướng đối tượng</p>
           <p>Xây dựng mô hình phân loại bệnh dựa trên ảnh lá lúa</p>
-
           <div className="auth-social">
-            <i className="fa-brands fa-facebook-f" />
-            <i className="fa-brands fa-google" />
-            <i className="fa-brands fa-pinterest-p" />
+            <div className="auth-social">
+                <a
+                  href="https://www.facebook.com/tran.nguyen.minh.khoi.380762"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <i className="fa-brands fa-facebook-f" />
+                </a>
+
+                <a
+                  href="https://www.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <i className="fa-brands fa-google" />
+                </a>
+
+                <a
+                  href="https://www.pinterest.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <i className="fa-brands fa-pinterest-p" />
+                </a>
+              </div>
+
           </div>
         </section>
 
-        {/* Panel phải */}
         <section className="auth-right">
           <div className="auth-title">Đăng nhập tài khoản</div>
           <form className="auth-form" onSubmit={submit}>
@@ -53,15 +77,25 @@ export default function Login(){
               autoFocus
               required
             />
-            <input
-              className="auth-input"
-              type="password"
-              placeholder="Mật khẩu"
-              value={form.password}
-              onChange={e=>setForm({...form, password:e.target.value})}
-              required
-            />
+            
+            {/* Ô mật khẩu có icon 👁️ */}
+            <div className="auth-field" style={{ position: "relative" }}>
+              <input
+                className="auth-input"
+                type={showPass ? "text" : "password"}
+                placeholder="Mật khẩu"
+                value={form.password}
+                onChange={e=>setForm({...form, password:e.target.value})}
+                required
+                style={{ paddingRight: 42 }}
+              />
+              <span className="eye-toggle" onClick={()=>setShowPass(!showPass)}>
+                {showPass ? "🙈" : "👁️"}
+              </span>
+            </div>
+
             {err && <div style={{color:"#ffb4b4"}}>{err}</div>}
+
             <div className="auth-actions">
               <button className="auth-btn" type="submit">Đăng nhập</button>
               <Link className="auth-link" to="/register">Chưa có tài khoản?</Link>

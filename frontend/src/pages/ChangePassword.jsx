@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
-import "../styles/auth.css";
+import "../styles/dashboard.css";
 
 export default function ChangePassword() {
   const nav = useNavigate();
   const [form, setForm] = useState({ old_password: "", new_password: "" });
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
+
+  const fullName = localStorage.getItem("full_name") || "Người dùng";
 
   const submit = async (e) => {
     e.preventDefault();
@@ -24,17 +26,60 @@ export default function ChangePassword() {
     }
   };
 
-  return (
-    <div className="auth-page">
-      <div className="auth-card" style={{ gridTemplateColumns: "1fr" }}>
-        <section className="auth-right">
-          <div className="auth-title">Đổi mật khẩu</div>
+  const logout = () => {
+    localStorage.clear();
+    nav("/login");
+  };
 
-          <form className="auth-form" onSubmit={submit}>
-            <div className="auth-field">
-              <label className="auth-label">Mật khẩu cũ</label>
+  return (
+    <div className="dashboard-page">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <h2>{fullName}</h2>
+        <a onClick={() => nav("/admin")}>Bảng điều khiển</a>
+        <a className="active" onClick={() => nav("/change-password")}>
+          Đổi mật khẩu
+        </a>
+        <a onClick={() => nav("/login-history")}>Lịch sử đăng nhập</a>
+        <a onClick={logout}>Đăng xuất</a>
+      </aside>
+
+      {/* Main */}
+      <main
+        className="dashboard-main"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "calc(100vh - 40px)", // chiếm full chiều cao
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: "100%",
+            maxWidth: 600,
+            padding: "40px 36px",
+            borderRadius: 20,
+            boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+          }}
+        >
+          <h1 style={{ marginBottom: 24, textAlign: "center", fontSize: 28 }}>
+            Đổi mật khẩu
+          </h1>
+
+          <form
+            onSubmit={submit}
+            style={{
+              display: "grid",
+              gap: 20,
+            }}
+          >
+            <div style={{ display: "grid", gap: 8 }}>
+              <label style={{ fontWeight: 600, color: "#374151" }}>
+                Mật khẩu cũ
+              </label>
               <input
-                className="auth-input"
                 type="password"
                 placeholder="Nhập mật khẩu cũ"
                 value={form.old_password}
@@ -42,13 +87,15 @@ export default function ChangePassword() {
                   setForm({ ...form, old_password: e.target.value })
                 }
                 required
+                className="input"
               />
             </div>
 
-            <div className="auth-field">
-              <label className="auth-label">Mật khẩu mới (≥8 ký tự)</label>
+            <div style={{ display: "grid", gap: 8 }}>
+              <label style={{ fontWeight: 600, color: "#374151" }}>
+                Mật khẩu mới (≥8 ký tự)
+              </label>
               <input
-                className="auth-input"
                 type="password"
                 placeholder="Nhập mật khẩu mới"
                 minLength={8}
@@ -57,29 +104,49 @@ export default function ChangePassword() {
                   setForm({ ...form, new_password: e.target.value })
                 }
                 required
+                className="input"
               />
             </div>
 
-            {err && <div style={{ color: "#ffb4b4" }}>{err}</div>}
-            {msg && <div style={{ color: "#7ef" }}>{msg}</div>}
+            {err && (
+              <div style={{ color: "#dc2626", fontWeight: 600 }}>{err}</div>
+            )}
+            {msg && (
+              <div style={{ color: "#16a34a", fontWeight: 600 }}>{msg}</div>
+            )}
 
-            <div className="auth-actions">
-              <button className="auth-btn" type="submit">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 12,
+                marginTop: 10,
+              }}
+            >
+              <button
+                type="submit"
+                className="btn-primary"
+                style={{ minWidth: 120, fontSize: 15 }}
+              >
                 Xác nhận
               </button>
-
-              {/* Nút quay lại có cùng màu và bo tròn */}
               <button
                 type="button"
-                className="auth-btn auth-btn--outline"
+                className="btn"
+                style={{
+                  background: "#475569",
+                  border: "none",
+                  minWidth: 120,
+                  fontSize: 15,
+                }}
                 onClick={() => nav(-1)}
               >
                 ← Quay lại
               </button>
             </div>
           </form>
-        </section>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }
